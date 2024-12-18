@@ -5,7 +5,9 @@ VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CosmeticStoreLibrary", "CosmeticStoreLibrary\CosmeticStoreLibrary.csproj", "{5D0CA7D2-7441-458A-84CF-4574468B5FB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CosmeticStoreWebApi", "CosmeticStoreWebApi\CosmeticStoreWebApi.csproj", "{43773E28-E834-4444-B3D2-DC2394EDF7FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CosmeticStoreWebApi", "CosmeticStoreWebApi\CosmeticStoreWebApi.csproj", "{43773E28-E834-4444-B3D2-DC2394EDF7FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CosmeticStore", "CosmeticStore\CosmeticStore.csproj", "{097DCE33-397F-4E6C-AA31-A45DD0B072D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{43773E28-E834-4444-B3D2-DC2394EDF7FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43773E28-E834-4444-B3D2-DC2394EDF7FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43773E28-E834-4444-B3D2-DC2394EDF7FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{097DCE33-397F-4E6C-AA31-A45DD0B072D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{097DCE33-397F-4E6C-AA31-A45DD0B072D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{097DCE33-397F-4E6C-AA31-A45DD0B072D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{097DCE33-397F-4E6C-AA31-A45DD0B072D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
