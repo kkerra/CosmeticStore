@@ -1,13 +1,6 @@
-﻿using System.Text;
+﻿using CosmeticStore.Pages;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CosmeticStore
 {
@@ -16,9 +9,14 @@ namespace CosmeticStore
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Frame MainFrame { get; private set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            mainFrame = new Frame();
+            Content = mainFrame;
+            mainFrame.Navigate(new ShopPage());
         }
     }
 }
