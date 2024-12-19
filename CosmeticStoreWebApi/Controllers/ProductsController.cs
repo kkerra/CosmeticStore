@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using CosmeticStoreLibrary.Data;
+using CosmeticStoreLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using CosmeticStoreLibrary.Data;
-using CosmeticStoreLibrary.Models;
 
 namespace CosmeticStoreWebApi.Controllers
 {
@@ -29,8 +24,8 @@ namespace CosmeticStoreWebApi.Controllers
         }
 
         // GET: api/Products/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(string id)
+        [HttpGet("{article}")]
+        public async Task<ActionResult<Product>> GetProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
 
@@ -44,7 +39,7 @@ namespace CosmeticStoreWebApi.Controllers
 
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("{article}")]
         public async Task<IActionResult> PutProduct(string id, Product product)
         {
             if (id != product.ProductArticleNumber)
@@ -99,8 +94,8 @@ namespace CosmeticStoreWebApi.Controllers
         }
 
         // DELETE: api/Products/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(string id)
+        [HttpDelete("{article}")]
+        public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
             if (product == null)
@@ -114,9 +109,9 @@ namespace CosmeticStoreWebApi.Controllers
             return NoContent();
         }
 
-        private bool ProductExists(string id)
+        private bool ProductExists(string article)
         {
-            return _context.Products.Any(e => e.ProductArticleNumber == id);
+            return _context.Products.Any(e => e.ProductArticleNumber == article);
         }
     }
 }

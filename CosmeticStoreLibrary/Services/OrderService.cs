@@ -15,39 +15,33 @@ namespace CosmeticStoreLibrary.Services
 
         public OrderService()
         {
-            _client =  new() { BaseAddress = new Uri(_baseUrl) };
+            _client = new HttpClient { BaseAddress = new Uri(_baseUrl) };
         }
-
-        public async Task<IEnumerable<Order>> GetOrdersAsync()
+        public async Task CreateOrderAsync(List<string> productIds)
         {
-            var response = await _client.GetAsync("Orders/");
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<IEnumerable<Order>>();
+            try
+            {
+                var response = await _client.PostAsJsonAsync("Orders/createOrder", new { ProductIds = productIds });
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"Ошибка HTTP запроса: {ex.Message}");
+            }
         }
-
-        public async Task<Order> GetOrderByIdAsync(int id)
+        public async Task<List<Order>> GetOrdersAsync()
         {
-            var response = await _client.GetAsync($"Orders/{id}");
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<Order>();
-        }
-
-        public async Task AddOrderAsync(Order order)
-        {
-            var response = await _client.PostAsJsonAsync("Orders/", order);
-            response.EnsureSuccessStatusCode();
-        }
-
-        public async Task UpdateOrderAsync(Order order)
-        {
-            var response = await _client.PutAsJsonAsync($"Orders/{order.OrderId}", order);
-            response.EnsureSuccessStatusCode();
-        }
-
-        public async Task DeleteOrderAsync(int id)
-        {
-            var response = await _client.DeleteAsync($"Orders/{id}");
-            response.EnsureSuccessStatusCode();
+            try
+            {
+                var response = await _client.GetAsync("Orders/getOrders");
+                response.EnsureSuccessStatusCode();
+                return await response.Content.ReadFromJsonAsync<List<Order>>();
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"Ошибка HTTP запроса: {ex.Message}");
+                return new List<Order>();
+            }
         }
     }
 }

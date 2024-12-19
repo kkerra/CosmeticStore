@@ -12,14 +12,13 @@ namespace CosmeticStoreLibrary.Services
         {
             _client = new() { BaseAddress = new Uri(_baseUrl) };
         }
-               
+
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
             var response = await _client.GetAsync("Products/");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<IEnumerable<Product>>();
         }
-
         public async Task<Product> GetProductByIdAsync(string productArticle)
         {
             var response = await _client.GetAsync($"Products/{productArticle}");

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using CosmeticStoreLibrary.Data;
+using CosmeticStoreLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using CosmeticStoreLibrary.Data;
-using CosmeticStoreLibrary.Models;
 
 namespace CosmeticStoreWebApi.Controllers
 {
@@ -100,9 +95,46 @@ namespace CosmeticStoreWebApi.Controllers
             return NoContent();
         }
 
+        [HttpPost("createOrder")]
+        public IActionResult CreateOrder([FromBody] CreateOrderRequest request)
+        {
+            if (request?.ProductIds == null || request.ProductIds.Count == 0)
+            {
+                return BadRequest("Список товаров не может быть пустым");
+            }
+            var products = _context.Products.Where(p => request.ProductIds.Contains(p.ProductArticleNumber)).ToList();
+            if (products.Count != request.ProductIds.Count)
+            {
+                return BadRequest("Один или несколько товаров не найдены");
+            }
+            var order = new Order() { OrderDate = DateTime.Now, OrderDeliveryDate = DateTime.Now.AddDays(3), OrderPickupCode = new Random().Next(1000, 9999), OrderPickupPointId = 1, OrderStatus = "Создан" };
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+            foreach (var product in products)
+            {
+                var orderProduct = new OrderProduct() { OrderId = order.OrderId, ProductArticleNumber = product.ProductArticleNumber, ProductAmount = 1 };
+                _context.OrderProducts.Add(orderProduct);
+            }
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        [HttpGet("getOrders")]
+        public IActionResult GetUsersOrders()
+        {
+            var orders = _context.Orders.Include(o => o.OrderProducts).ThenInclude(op => op.ProductArticleNumberNavigation).ToList();
+            return Ok(orders);
+        }
+
         private bool OrderExists(int id)
         {
             return _context.Orders.Any(e => e.OrderId == id);
         }
     }
 }
+public class CreateOrderRequest
+{
+    public List<string> ProductIds { get; set; }
+}
+
+

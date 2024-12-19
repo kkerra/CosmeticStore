@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CosmeticStoreLibrary.Models;
+﻿namespace CosmeticStoreLibrary.Models;
 
 public partial class Product
 {
