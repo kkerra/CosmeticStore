@@ -15,10 +15,5 @@ namespace CosmeticStore
             InitializeComponent();
             MainFrame.Navigate(new ShopPage());
         }
-
-        private void AuthorizationButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new AuthorizationPage());
-        }
     }
 }

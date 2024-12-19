@@ -1,10 +1,5 @@
 ﻿using CosmeticStoreLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CosmeticStoreLibrary.Services
 {
@@ -17,7 +12,7 @@ namespace CosmeticStoreLibrary.Services
         {
             _client = new() { BaseAddress = new Uri(_baseUrl) };
         }
-
+               
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
             var response = await _client.GetAsync("Products/");

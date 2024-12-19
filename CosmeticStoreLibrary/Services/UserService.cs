@@ -24,7 +24,11 @@ namespace CosmeticStoreLibrary.Services
             {
                 var response = await _client.GetAsync($"Users/login?login={login}&password={password}");
                 response.EnsureSuccessStatusCode();
-                return await response.Content.ReadFromJsonAsync<User>();
+                string responseString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Response: {responseString}");
+
+                var user = await response.Content.ReadFromJsonAsync<User>();
+                return user;
             }
             catch (HttpRequestException ex)
             {

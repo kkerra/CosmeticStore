@@ -1,12 +1,13 @@
 ﻿using CosmeticStoreLibrary.Models;
 using CosmeticStoreLibrary.Services;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Net.Http;
 using System.Windows;
 
 namespace CosmeticStore.ViewModels
 {
-    class ShopPageViewModel
+    public class ShopPageViewModel
     {
         private readonly ProductService _productService;
         public ObservableCollection<Product> Products { get; private set; }
@@ -35,3 +36,4 @@ namespace CosmeticStore.ViewModels
         }
     }
 }
+

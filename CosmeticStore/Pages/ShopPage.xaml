@@ -17,9 +17,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
-            <TextBlock x:Name="FullNameTextBlock" Text="Гость" Margin="0,0,10,0"/>
-            <Button Content="Выйти" Width="80" Height="30"  Click="LogoutButton_Click" />
+            <TextBlock x:Name="FullNameTextBlock" Text="Гость" Margin="0,0,10,0" VerticalAlignment="Center"/>
+            <Button x:Name="LoginButton" Content="Войти" Width="80" Height="30" Click="LoginButton_Click" />
         </StackPanel>
+        
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Products}">
                 <ItemsControl.ItemTemplate>

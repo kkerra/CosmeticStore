@@ -25,16 +25,43 @@ namespace CosmeticStore.Pages
         {
             InitializeComponent();
             var currentUser = Application.Current.Properties["CurrentUser"] as User;
+            UpdateLoginButton(currentUser);
+
             if (currentUser != null)
             {
                 FullNameTextBlock.Text = $"{currentUser.Surname} {currentUser.Name} {currentUser.Patronymic}";
             }
+            else
+            {
+                FullNameTextBlock.Text = "Гость";
+            }
         }
 
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        private void UpdateLoginButton(User? currentUser)
         {
-            Application.Current.Properties["CurrentUser"] = null;
-            NavigationService.Navigate(new AuthorizationPage());
+            if (currentUser == null)
+            {
+                LoginButton.Content = "Войти";
+            }
+            else
+            {
+                LoginButton.Content = "Выйти";
+            }
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            var currentUser = Application.Current.Properties["CurrentUser"] as User;
+
+            if (currentUser == null)
+            {
+                NavigationService.Navigate(new AuthorizationPage());
+            }
+            else
+            {
+                Application.Current.Properties["CurrentUser"] = null;
+                NavigationService.Navigate(new AuthorizationPage());
+            }
         }
     }
 }
