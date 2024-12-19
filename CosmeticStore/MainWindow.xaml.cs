@@ -9,14 +9,16 @@ namespace CosmeticStore
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Frame MainFrame { get; private set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            mainFrame = new Frame();
-            Content = mainFrame;
-            mainFrame.Navigate(new ShopPage());
+            MainFrame.Navigate(new ShopPage());
+        }
+
+        private void AuthorizationButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new AuthorizationPage());
         }
     }
 }

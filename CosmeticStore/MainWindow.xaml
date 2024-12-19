@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CosmeticStore"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Icon="\Images\icon.ico">
-    <Grid>
-        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Source="/Pages/ShopPage.xaml"/>
-    </Grid>
+        Title="MainWindow" Height="450" 
+        Width="800" 
+        Icon="\Images\icon.ico"
+        MinWidth="600" 
+        MinHeight="400">
+    <DockPanel>
+        <Button x:Name="AuthorizationButton" Content="Войти" DockPanel.Dock="Top" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Width="80" Height="30" Click="AuthorizationButton_Click"/>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Source="/Pages/ShopPage.xaml"/>        
+    </DockPanel>
 </Window>

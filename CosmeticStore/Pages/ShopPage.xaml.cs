@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CosmeticStoreLibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,17 @@ namespace CosmeticStore.Pages
         public ShopPage()
         {
             InitializeComponent();
+            var currentUser = Application.Current.Properties["CurrentUser"] as User;
+            if (currentUser != null)
+            {
+                FullNameTextBlock.Text = $"{currentUser.Surname} {currentUser.Name} {currentUser.Patronymic}";
+            }
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Properties["CurrentUser"] = null;
+            NavigationService.Navigate(new AuthorizationPage());
         }
     }
 }
