@@ -160,7 +160,6 @@
         <Setter Property="VerticalAlignment" Value="Top"/>
     </Style>
 
-    <!-- Использование StackPanel в Border -->
     <Style x:Key="StackPanelInBorderStyle" TargetType="StackPanel">
         <Setter Property="Margin" Value="10"/>
         <Setter Property="Background" Value="{StaticResource PrimaryBackgroundBrush}"/>

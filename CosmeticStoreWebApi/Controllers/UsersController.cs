@@ -111,12 +111,10 @@ namespace CosmeticStoreWebApi.Controllers
 
             if (user != null)
             {
-                // Если пользователь найден, возвращаем данные пользователя с кодом 200 (OK)
                 return Ok(user);
             }
             else
             {
-                // Если пользователь не найден, возвращаем код 401 (Unauthorized)
                 return Unauthorized("Неверный логин или пароль.");
             }
         }
