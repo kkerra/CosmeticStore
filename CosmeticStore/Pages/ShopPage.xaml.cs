@@ -30,23 +30,23 @@ namespace CosmeticStore.Pages
             if (currentUser != null)
             {
                 FullNameTextBlock.Text = $"{currentUser.Surname} {currentUser.Name} {currentUser.Patronymic}";
+
+                if (currentUser.RoleId == 2 || currentUser.RoleId == 3)
+                    AdminPanelButton.Visibility = Visibility.Visible;
             }
             else
             {
                 FullNameTextBlock.Text = "Гость";
+                AdminPanelButton.Visibility = Visibility.Collapsed;
             }
         }
 
         private void UpdateLoginButton(User? currentUser)
         {
             if (currentUser == null)
-            {
                 LoginButton.Content = "Войти";
-            }
             else
-            {
                 LoginButton.Content = "Выйти";
-            }
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -54,14 +54,22 @@ namespace CosmeticStore.Pages
             var currentUser = Application.Current.Properties["CurrentUser"] as User;
 
             if (currentUser == null)
-            {
                 NavigationService.Navigate(new AuthorizationPage());
-            }
             else
             {
                 Application.Current.Properties["CurrentUser"] = null;
                 NavigationService.Navigate(new AuthorizationPage());
             }
+        }
+
+        private void OrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new OrderPage());
+        }
+
+        private void AdminPanelButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AdministrationPage());
         }
     }
 }

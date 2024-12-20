@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace CosmeticStoreLibrary.Models;
 
@@ -19,7 +20,9 @@ public partial class User
 
     public int RoleId { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
+    [JsonIgnore]
     public virtual Role Role { get; set; } = null!;
 }

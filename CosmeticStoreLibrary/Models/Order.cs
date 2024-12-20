@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace CosmeticStoreLibrary.Models;
 
@@ -19,9 +20,12 @@ public partial class Order
 
     public int OrderPickupPointId { get; set; }
 
-    public virtual PickupPoint OrderPickupPoint { get; set; } = null!;
+    [JsonIgnore]
+    public virtual PickupPoint? OrderPickupPoint { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
 
+    [JsonIgnore]
     public virtual User? User { get; set; }
 }

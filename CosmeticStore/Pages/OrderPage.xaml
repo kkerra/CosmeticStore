@@ -6,9 +6,20 @@
       xmlns:local="clr-namespace:CosmeticStore.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="OrderPage">
-
+      xmlns:viewModels="clr-namespace:CosmeticStore.ViewModels"
+      Title="Корзина">
     <Grid>
-        
+        <TextBlock Text="Корзина" FontSize="24" FontWeight="Bold" Margin="10"/>
+        <ItemsControl ItemsSource="{Binding Order}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="10">
+                        <TextBlock Text="{Binding ProductName}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding ProductDescription}"/>
+                        <TextBlock Text="{Binding ProductCost}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Page>

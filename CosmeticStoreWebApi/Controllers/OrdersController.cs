@@ -68,17 +68,6 @@ namespace CosmeticStoreWebApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Orders
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
-        {
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetOrder", new { id = order.OrderId }, order);
-        }
-
         // DELETE: api/Orders/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(int id)
@@ -95,28 +84,17 @@ namespace CosmeticStoreWebApi.Controllers
             return NoContent();
         }
 
-        [HttpPost("createOrder")]
-        public IActionResult CreateOrder([FromBody] CreateOrderRequest request)
+        [HttpPost]
+        public async Task<ActionResult<Order>> CreateOrder(Order order)
         {
-            if (request?.ProductIds == null || request.ProductIds.Count == 0)
+            if (order == null || order.OrderProducts == null || order.OrderProducts.Count == 0)
             {
-                return BadRequest("Список товаров не может быть пустым");
+                return BadRequest("В заказе должен быть хотя бы один товар.");
             }
-            var products = _context.Products.Where(p => request.ProductIds.Contains(p.ProductArticleNumber)).ToList();
-            if (products.Count != request.ProductIds.Count)
-            {
-                return BadRequest("Один или несколько товаров не найдены");
-            }
-            var order = new Order() { OrderDate = DateTime.Now, OrderDeliveryDate = DateTime.Now.AddDays(3), OrderPickupCode = new Random().Next(1000, 9999), OrderPickupPointId = 1, OrderStatus = "Создан" };
+
             _context.Orders.Add(order);
-            _context.SaveChanges();
-            foreach (var product in products)
-            {
-                var orderProduct = new OrderProduct() { OrderId = order.OrderId, ProductArticleNumber = product.ProductArticleNumber, ProductAmount = 1 };
-                _context.OrderProducts.Add(orderProduct);
-            }
-            _context.SaveChanges();
-            return Ok();
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetOrder), new { id = order.OrderId }, order);
         }
 
         [HttpGet("getOrders")]
@@ -132,9 +110,4 @@ namespace CosmeticStoreWebApi.Controllers
         }
     }
 }
-public class CreateOrderRequest
-{
-    public List<string> ProductIds { get; set; }
-}
-
 

@@ -1,4 +1,6 @@
-﻿namespace CosmeticStoreLibrary.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace CosmeticStoreLibrary.Models;
 
 public partial class Product
 {
@@ -22,5 +24,6 @@ public partial class Product
 
     public string ProductStatus { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
 }

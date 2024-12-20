@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,31 +18,36 @@ namespace CosmeticStoreLibrary.Services
         {
             _client = new HttpClient { BaseAddress = new Uri(_baseUrl) };
         }
-        public async Task CreateOrderAsync(List<string> productIds)
+        public async Task<IEnumerable<Order>> GetOrdersAsync()
         {
-            try
-            {
-                var response = await _client.PostAsJsonAsync("Orders/createOrder", new { ProductIds = productIds });
-                response.EnsureSuccessStatusCode();
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine($"Ошибка HTTP запроса: {ex.Message}");
-            }
+            var response = await _client.GetAsync("Orders/");
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<IEnumerable<Order>>();
         }
-        public async Task<List<Order>> GetOrdersAsync()
+
+        public async Task<Order> GetOrderByIdAsync(int id)
         {
-            try
-            {
-                var response = await _client.GetAsync("Orders/getOrders");
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadFromJsonAsync<List<Order>>();
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine($"Ошибка HTTP запроса: {ex.Message}");
-                return new List<Order>();
-            }
+            var response = await _client.GetAsync($"Orders/{id}");
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<Order>();
+        }
+
+        public async Task AddOrderAsync(Order order)
+        {
+            var response = await _client.PostAsJsonAsync("Orders/", order);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task UpdateOrderAsync(Order order)
+        {
+            var response = await _client.PutAsJsonAsync($"Orders/{order.OrderId}", order);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task DeleteOrderAsync(int id)
+        {
+            var response = await _client.DeleteAsync($"Orders/{id}");
+            response.EnsureSuccessStatusCode();
         }
     }
 }
